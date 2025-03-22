@@ -21,9 +21,16 @@ class Grid:
         self.grid: List[List[int]] = [[0 for _ in range(x)] for _ in range(y)]
 
     def add_cake(self, ori_x: int, ori_y: int, cake: Cake):
-        # Check grid
+        new_grid = self.grid.copy()
         for x, y in cake.squares:
-            pass
+            new_grid[ori_x + x][ori_y + y] = cake.baking_time
+            if self.grid[ori_x + x][ori_y + y] != 0:
+                raise ValueError("Tu empile des gateaux sale fou")
+
+        self.grid = new_grid
+        self.baking.append(BakingCake(cake, ori_x, ori_y))
+
+
 
     def get_minimum_baking_time(self):
         return min([self.grid[cake.ori_x][cake.ori_y] for cake in self.baking])
