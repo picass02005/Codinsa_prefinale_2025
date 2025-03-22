@@ -80,4 +80,4 @@ if __name__ == '__main__':
         for i in glouton(dataset):
             f.write(f"{' '.join(str(j) for j in i)}\n")
 
-    submission_viewer.run(dataset_path, "aout_put.txt", 100, 50)
+    submission_viewer.run(dataset_path, "aout_put.txt", 50, 100)
