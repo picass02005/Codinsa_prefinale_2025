@@ -50,7 +50,7 @@ class Grid:
         if len(self.baking) == 0:
             return 0
 
-        return min([self.grid[cake.ori_x][cake.ori_y] for cake in self.baking])
+        return min([self.grid[cake.ori_y][cake.ori_x] for cake in self.baking])
 
     # Update the cakes on the grid by the given time 
     def update_cakes(self, time):
