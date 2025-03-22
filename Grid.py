@@ -25,7 +25,9 @@ class Grid:
         return [y.copy() for y in self.grid]
 
     def __copy__(self):
-        return self.__new__(self.__class__).__init__(self.x, self.y, self.baking, self.grid)
+        grid = self.__new__(self.__class__)
+        grid.__init__(self.x, self.y, self.baking, self.grid)
+        return grid
 
 
     def add_cake(self, ori_x: int, ori_y: int, cake: Cake) -> bool:
@@ -40,8 +42,6 @@ class Grid:
         self.baking.append(BakingCake(cake, ori_x, ori_y))
 
         return True
-
-
 
     def get_minimum_baking_time(self):
         return min([self.grid[cake.ori_x][cake.ori_y] for cake in self.baking])
