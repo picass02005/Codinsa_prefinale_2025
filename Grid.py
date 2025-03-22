@@ -53,5 +53,5 @@ class Grid:
 
     # Update the cakes on the grid by the given time 
     def update_cakes(self, time):
-        self.grid = [[max(0, self.grid[x][y] - time) for x in range(self.x)] for y in range(self.y)]
+        self.grid = [[max(0, self.grid[y][x] - time) for x in range(self.x)] for y in range(self.y)]
         self.baking = [cake for cake in self.baking if self.grid[cake.ori_x][cake.ori_y] > 0]
