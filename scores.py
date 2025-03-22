@@ -1,5 +1,5 @@
-from typing import List, Tuple
-from Parser import Cake
+from typing import List
+
 
 # Heuristique somme des aires des espaces vides au carrés
 def basic_score(grid: List[List[bool]]) -> float:
@@ -51,4 +51,23 @@ def cake_area_score(x, y, grid) -> float:
         done.append((i, j))
         return 1 + find_area(i + 1, j) + find_area(i - 1, j) + find_area(i, j + 1) + find_area(i, j - 1)
 
+<<<<<<< HEAD
     return find_area(y, x)
+=======
+    return find_area(x, y)
+
+
+def cake_area_score_2(x, y, grid) -> float:
+    done = []
+    to_do = [(x, y)]
+
+    while to_do:
+        x, y = to_do.pop()
+        done.append((x, y))
+
+        for i, j in ((1, 0), (-1, 0), (0, 1), (0, -1)):
+            if (x, y) not in done and 0 <= x + i < grid.x and 0 <= x + j < grid.y:
+                to_do.append((x + i, y + j))
+
+    return len(done)
+>>>>>>> 237a74ae299bfb71028f8e15b08375be44e7cdd1
