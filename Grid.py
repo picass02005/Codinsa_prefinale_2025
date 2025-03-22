@@ -1,3 +1,4 @@
+import sys
 from dataclasses import dataclass
 from typing import List
 
@@ -23,15 +24,18 @@ class Grid:
     def copy_grid(self):
         return [y.copy() for y in self.grid]
 
-    def add_cake(self, ori_x: int, ori_y: int, cake: Cake):
+    def add_cake(self, ori_x: int, ori_y: int, cake: Cake) -> bool:
         new_grid = self.copy_grid()
         for x, y in cake.squares:
             new_grid[ori_x + x][ori_y + y] = cake.baking_time
             if self.grid[ori_x + x][ori_y + y] != 0:
-                raise ValueError("Tu empile des gateaux sale fou")
+                print("WARNING: Tu empile des gateaux sale fou", sys.stderr)
+                return False
 
         self.grid = new_grid
         self.baking.append(BakingCake(cake, ori_x, ori_y))
+
+        return True
 
 
 
