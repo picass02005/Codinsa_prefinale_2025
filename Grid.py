@@ -20,8 +20,11 @@ class Grid:
 
         self.grid: List[List[int]] = [[0 for _ in range(x)] for _ in range(y)]
 
+    def copy_grid(self):
+        return [y.copy() for y in self.grid]
+
     def add_cake(self, ori_x: int, ori_y: int, cake: Cake):
-        new_grid = self.grid.copy()
+        new_grid = self.copy_grid()
         for x, y in cake.squares:
             new_grid[ori_x + x][ori_y + y] = cake.baking_time
             if self.grid[ori_x + x][ori_y + y] != 0:
