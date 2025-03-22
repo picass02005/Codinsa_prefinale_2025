@@ -44,7 +44,7 @@ def glouton(dataset: Dataset):
         baked_cakes.append(cake)
 
         id = dataset.cakes.index(cake)
-        result.append((cake, time, x, y))
+        result.append((id, time, x, y))
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
