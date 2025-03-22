@@ -6,7 +6,7 @@ import submission_viewer
 from Grid import Grid
 from Parser import Cake, Dataset
 from Parser import parse_dataset
-from scores import basic_score
+from scores import *
 
 
 def best_action(grid: Grid, cakes: List[Cake]):
@@ -32,7 +32,7 @@ def best_action(grid: Grid, cakes: List[Cake]):
                 if cake.identifier == 16:
                     print(cake.identifier, x, y, added)
 
-                score = basic_score(grid.grid)
+                score = basic2_score(grid.grid)
                 if score <= best_score:
                     best_score = score
                     best_action = (x, y, cake)
@@ -48,6 +48,8 @@ def glouton(dataset: Dataset):
 
     while len(baked_cakes) != len(dataset.cakes):
         action = best_action(grid, raw_cakes)
+
+        print(len(baked_cakes), "/", len(dataset.cakes))
 
         if action is None:
             time += grid.get_minimum_baking_time()

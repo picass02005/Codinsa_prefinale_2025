@@ -23,5 +23,20 @@ def basic_score(grid: List[List[bool]]) -> float:
 
     return sum(area ** 2 for area in areas)
 
+# Heuristique somme des aires des espaces vides au carrés
+def basic2_score(grid: List[List[bool]]) -> float:
+    done = []
+    total = 0
+
+    for i in range(len(grid)):
+        for j in range(len(grid[0])):
+            # Si on est déjà passé par là ou si on est sur un gâteau, on passe
+            if (i, j) in done or grid[i][j]:
+                continue
+
+            total += 1
+
+    return total
+
 
     
