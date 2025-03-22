@@ -1,4 +1,3 @@
-import sys
 from dataclasses import dataclass
 from typing import List, Optional
 
@@ -33,6 +32,9 @@ class Grid:
     def add_cake(self, ori_x: int, ori_y: int, cake: Cake) -> bool:
         new_grid = self.copy_grid()
         for x, y in cake.squares:
+            if ori_x + x >= self.x or ori_y + y >= self.y:
+                return False
+
             try:
                 new_grid[ori_x + x][ori_y + y] = cake.baking_time
             except IndexError:
