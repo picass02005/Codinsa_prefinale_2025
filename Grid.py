@@ -26,14 +26,19 @@ class Grid:
 
     def __copy__(self):
         grid = self.__new__(self.__class__)
-        grid.__init__(self.x, self.y, self.baking, self.grid)
+        grid.__init__(self.x, self.y, self.baking.copy(), self.copy_grid())
         return grid
 
 
     def add_cake(self, ori_x: int, ori_y: int, cake: Cake) -> bool:
         new_grid = self.copy_grid()
         for x, y in cake.squares:
-            new_grid[ori_x + x][ori_y + y] = cake.baking_time
+            try:
+                new_grid[ori_x + x][ori_y + y] = cake.baking_time
+            except IndexError:
+                return False
+
+
             if self.grid[ori_x + x][ori_y + y] != 0:
                 print("WARNING: Tu empile des gateaux sale fou", sys.stderr)
                 return False
