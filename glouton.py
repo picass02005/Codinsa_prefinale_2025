@@ -46,7 +46,7 @@ def glouton(dataset: Dataset):
             baked_cakes.append(cake)
             raw_cakes.remove(cake)
 
-            result.append((dataset.cakes.index(cake), time, x, y))
+            result.append((cake.identifier, time, x, y))
 
     print('Time:', time)
     return result

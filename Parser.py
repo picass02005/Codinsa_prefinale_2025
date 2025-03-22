@@ -6,6 +6,7 @@ from typing import List, Tuple
 
 @dataclass
 class Cake:
+    identifier: int
     baking_time: int
     squares: List[Tuple[int, int]]
 
@@ -33,6 +34,6 @@ def parse_dataset(dataset_txt: str) -> Dataset:
         squares = list(zip(raw_coords[::2], raw_coords[1::2]))
         assert m == len(squares)
 
-        res.cakes.append(Cake(baking_time=baking_time, squares=squares))
+        res.cakes.append(Cake(identifier=cake_id, baking_time=baking_time, squares=squares))
 
     return res
