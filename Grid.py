@@ -1,6 +1,6 @@
 import sys
 from dataclasses import dataclass
-from typing import List
+from typing import List, Optional
 
 from Parser import Cake
 
@@ -13,16 +13,20 @@ class BakingCake:
 
 
 class Grid:
-    def __init__(self, x: int, y: int):
+    def __init__(self, x: int, y: int, baking: Optional[List[BakingCake]], grid: Optional[List[List[int]]]):
         self.x: int = x
         self.y: int = y
 
-        self.baking: List[BakingCake] = []
+        self.baking: List[BakingCake] = baking if baking is not None else []
 
-        self.grid: List[List[int]] = [[0 for _ in range(x)] for _ in range(y)]
+        self.grid: List[List[int]] = grid if grid is not None else [[0 for _ in range(x)] for _ in range(y)]
 
     def copy_grid(self):
         return [y.copy() for y in self.grid]
+
+    def __copy__(self):
+        return self.__new__(self.__class__).__init__(self.x, self.y, self.baking, self.grid)
+
 
     def add_cake(self, ori_x: int, ori_y: int, cake: Cake) -> bool:
         new_grid = self.copy_grid()
