@@ -25,6 +25,9 @@ class Grid:
         for x, y in cake.squares:
             pass
 
+    def get_minimum_baking_time(self):
+        return min([self.grid[cake.ori_x][cake.ori_y] for cake in self.baking])
+
     # Update the cakes on the grid by the given time 
     def update_cakes(self, time):
         self.grid = [[max(0, self.grid[x][y] - time) for x in range(self.x)] for y in range(self.y)]
