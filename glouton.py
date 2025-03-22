@@ -1,6 +1,8 @@
-import argparse
+import os
+import sys
 from typing import List, Tuple
 
+import submission_viewer
 from Grid import Grid
 from Parser import Cake, Dataset
 from Parser import parse_dataset
@@ -63,14 +65,19 @@ def glouton(dataset: Dataset):
     return result
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser()
-    parser.add_argument('dataset_path')
+    if len(sys.argv) == 1:
+        dataset_path = f'datasets/{os.listdir("datasets")[int(input("Gwive dwatwaswet nwumber\n>>> ")) - 1]}'
 
-    parsed_args = parser.parse_args()
-    with open(parsed_args.dataset_path, "r") as file:
+    else:
+        dataset_path = sys.argv[1]
+
+    print(f"{dataset_path = }")
+    with open(dataset_path, "r") as file:
         dataset_txt = file.read()
     dataset = parse_dataset(dataset_txt)
 
     with open("aout_put.txt", "w") as f:
         for i in glouton(dataset):
             f.write(f"{' '.join(str(j) for j in i)}\n")
+
+    submission_viewer.run(dataset_path, "aout_put.txt", 100, 50)
