@@ -61,4 +61,4 @@ if __name__ == '__main__':
 
     with open("aout_put.txt", "w") as f:
         for i in glouton(dataset):
-            f.write(" ".join(str(j) for j in i))
+            f.write(f"{' '.join(str(j) for j in i)}\n")
