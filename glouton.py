@@ -59,4 +59,6 @@ if __name__ == '__main__':
         dataset_txt = file.read()
     dataset = parse_dataset(dataset_txt)
 
-    print(glouton(dataset))
+    with open("aout_put.txt", "w") as f:
+        for i in glouton(dataset):
+            f.write(" ".join(str(j) for j in i))
