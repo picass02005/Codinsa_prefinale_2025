@@ -30,22 +30,22 @@ def glouton(dataset: Dataset):
     result: Tuple[int, int, int, int] = []
     grid = Grid(dataset.w, dataset.h, None, None)
     baked_cakes = []
+    raw_cakes = dataset.cakes.copy()
     time = 0
 
     while len(baked_cakes) != len(dataset.cakes):
-        action = best_action(grid, dataset.cakes)
+        action = best_action(grid, raw_cakes)
 
         if action is None:
             time += grid.get_minimum_baking_time()
             grid.update_cakes(grid.get_minimum_baking_time())
         else:
-            
             x, y, cake = action
             grid.add_cake(x, y, cake)
             baked_cakes.append(cake)
-
-            id = dataset.cakes.index(cake)
-            result.append((id, time, x, y))
+            raw_cakes.remove(cake)
+            
+            result.append((dataset.cakes.index(cake), time, x, y))
 
     print('Time:', time)
     return result
