@@ -46,6 +46,8 @@ def glouton(dataset: Dataset):
         id = dataset.cakes.index(cake)
         result.append((id, time, x, y))
 
+    return result
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('dataset_path')
@@ -55,4 +57,4 @@ if __name__ == '__main__':
         dataset_txt = file.read()
     dataset = parse_dataset(dataset_txt)
 
-    glouton(dataset)
+    print(glouton(dataset))
