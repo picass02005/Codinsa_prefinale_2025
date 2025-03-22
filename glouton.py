@@ -19,7 +19,7 @@ def best_action(grid: Grid, cakes: List[Cake]):
         available_space = grid.x * grid.y - sum(sum(x != 0 for x in y) for y in grid.grid)
 
         if size > available_space:
-            print('Not enough space for cake', cake.identifier)
+            # print('Not enough space for cake', cake.identifier)
             continue
 
         for x in range(grid.x):
