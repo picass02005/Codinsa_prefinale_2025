@@ -10,7 +10,7 @@ from scores import *
 
 
 def best_action(grid: Grid, cakes: List[Cake]):
-    best_score = float('inf')
+    best_score = 0
     best_action = None
     grid = grid.__copy__()
 
@@ -32,8 +32,9 @@ def best_action(grid: Grid, cakes: List[Cake]):
                 if cake.identifier == 16:
                     print(cake.identifier, x, y, added)
 
-                score = basic2_score(grid.grid)
-                if score <= best_score:
+                # score = basic2_score(grid.grid)
+                score = cake_area_score(x, y, grid.grid)
+                if score >= best_score:
                     best_score = score
                     best_action = (x, y, cake)
     return best_action
@@ -43,7 +44,7 @@ def glouton(dataset: Dataset):
     result: Tuple[int, int, int, int] = []
     grid = Grid(dataset.w, dataset.h, None, None)
     baked_cakes = []
-    raw_cakes = dataset.cakes.copy()
+    raw_cakes = sorted(dataset.cakes, key=lambda cake: len(cake.squares), reverse=True)
     time = 0
 
     while len(baked_cakes) != len(dataset.cakes):

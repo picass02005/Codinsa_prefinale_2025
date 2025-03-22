@@ -40,3 +40,15 @@ def basic2_score(grid: List[List[bool]]) -> float:
 
 
     
+# Heuristique somme des aires des espaces vides au carrés
+def cake_area_score(x, y, grid) -> float:
+    done = []
+
+    def find_area(i, j):
+        # Si on dépasse les dimensions de la grille, on est déjà passé par là ou si on est pas sur un gateau
+        if i < 0 or i >= len(grid) or j < 0 or j >= len(grid[0]) or (i, j) in done or grid[i][j] != 0:
+            return 0
+        done.append((i, j))
+        return 1 + find_area(i + 1, j) + find_area(i - 1, j) + find_area(i, j + 1) + find_area(i, j - 1)
+
+    return find_area(x, y)
