@@ -18,7 +18,7 @@ class Grid:
 
         self.baking: List[BakingCake] = []
 
-        self.grid: List[List[bool]] = [[False for _ in range(x)] for _ in range(y)]
+        self.grid: List[List[int]] = [[0 for _ in range(x)] for _ in range(y)]
 
     def add_cake(self, ori_x: int, ori_y: int, cake: Cake):
         # Check grid
