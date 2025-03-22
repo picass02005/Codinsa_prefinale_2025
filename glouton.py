@@ -41,10 +41,11 @@ def glouton(dataset: Dataset):
             grid.update_cakes(grid.get_minimum_baking_time())
         else:
             x, y, cake = action
+
             grid.add_cake(x, y, cake)
             baked_cakes.append(cake)
             raw_cakes.remove(cake)
-            
+
             result.append((dataset.cakes.index(cake), time, x, y))
 
     print('Time:', time)
