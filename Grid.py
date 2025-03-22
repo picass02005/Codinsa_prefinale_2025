@@ -40,7 +40,7 @@ class Grid:
 
 
             if self.grid[ori_x + x][ori_y + y] != 0:
-                print("WARNING: Tu empile des gateaux sale fou", sys.stderr)
+                # print("WARNING: Tu empile des gateaux sale fou", sys.stderr)
                 return False
 
         self.grid = new_grid
@@ -49,6 +49,9 @@ class Grid:
         return True
 
     def get_minimum_baking_time(self):
+        if len(self.baking) == 0:
+            return 0
+
         return min([self.grid[cake.ori_x][cake.ori_y] for cake in self.baking])
 
     # Update the cakes on the grid by the given time 

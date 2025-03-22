@@ -11,8 +11,6 @@ def best_action(grid: Grid, cakes: List[Cake]):
     best_action = None
     grid = grid.__copy__()
 
-    print(grid)
-
     for cake in cakes:
         for x in range(grid.x):
             for y in range(grid.y):
@@ -36,20 +34,20 @@ def glouton(dataset: Dataset):
 
     while len(baked_cakes) != len(dataset.cakes):
         action = best_action(grid, dataset.cakes)
+
         if action is None:
-            print("No action found")
-            break
+            time += grid.get_minimum_baking_time()
+            grid.update_cakes(grid.get_minimum_baking_time())
+        else:
+            
+            x, y, cake = action
+            grid.add_cake(x, y, cake)
+            baked_cakes.append(cake)
 
-        x, y, cake = action
-        grid.add_cake(x, y, cake)
+            id = dataset.cakes.index(cake)
+            result.append((id, time, x, y))
 
-        time += grid.get_minimum_baking_time()
-        grid.update_cakes(grid.get_minimum_baking_time())
-        baked_cakes.append(cake)
-
-        id = dataset.cakes.index(cake)
-        result.append((id, time, x, y))
-
+    print('Time:', time)
     return result
 
 if __name__ == '__main__':
