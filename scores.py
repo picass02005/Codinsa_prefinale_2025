@@ -51,10 +51,7 @@ def cake_area_score(x, y, grid) -> float:
         done.append((i, j))
         return 1 + find_area(i + 1, j) + find_area(i - 1, j) + find_area(i, j + 1) + find_area(i, j - 1)
 
-<<<<<<< HEAD
     return find_area(y, x)
-=======
-    return find_area(x, y)
 
 
 def cake_area_score_2(x, y, grid) -> float:
@@ -70,4 +67,3 @@ def cake_area_score_2(x, y, grid) -> float:
                 to_do.append((x + i, y + j))
 
     return len(done)
->>>>>>> 237a74ae299bfb71028f8e15b08375be44e7cdd1
