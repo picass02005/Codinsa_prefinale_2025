@@ -32,5 +32,9 @@ class Grid:
 
 
 
+    # Update the cakes on the grid by the given time 
+    def update_cakes(self, time):
+        pass
+
     def remove_cake(self, cake: BakingCake):
         pass
