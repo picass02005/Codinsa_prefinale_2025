@@ -1,8 +1,10 @@
 import argparse
-from Parser import parse_dataset
-from Grid import Grid
 from typing import List, Tuple
+
+from Grid import Grid
 from Parser import Cake, Dataset
+from Parser import parse_dataset
+
 
 def best_action(grid: Grid, cakes: List[Cake]):
     best_score = 0
