@@ -2,9 +2,11 @@
 
 import argparse
 import math
-import pygame
 from dataclasses import dataclass
 from typing import List, Tuple
+
+import pygame
+
 
 @dataclass
 class Cake:
@@ -89,35 +91,29 @@ def parse_submission(submission_txt: str) -> Submission:
         res.cakes.append(CakeSubmission(id=id, time=time, pos=(x, y)))
     return res
 
-if __name__ == '__main__':
-    parser = argparse.ArgumentParser()
-    parser.add_argument('dataset_path')
-    parser.add_argument('submission_path')
-    parser.add_argument('--scale', default='auto')
-    parser.add_argument('--speed', default='auto')
 
-    parsed_args = parser.parse_args()
-    with open(parsed_args.dataset_path, "r") as file:
+def run(dataset_path, submission_path, scale, speed):
+    with open(dataset_path, "r") as file:
         dataset_txt = file.read()
     dataset = parse_dataset(dataset_txt)
 
-    with open(parsed_args.submission_path, "r") as file:
+    with open(submission_path, "r") as file:
         submission_txt = file.read()
     submission = parse_submission(submission_txt)
 
     score = submission.score(dataset)
 
-    if parsed_args.scale == 'auto':
+    if scale == 'auto':
         target_w = 1500
         target_h = 800
         viewer_scale = math.floor(min(target_w / dataset.w, target_h / dataset.h))
     else:
-        viewer_scale = int(parsed_args.scale)
-    
-    if parsed_args.speed == 'auto':
+        viewer_scale = int(scale)
+
+    if speed == 'auto':
         viewer_speed = score / 20.0
     else:
-        viewer_speed = float(parsed_args.speed)
+        viewer_speed = float(speed)
 
     pygame.init()
     pygame.font.init()
@@ -145,17 +141,39 @@ if __name__ == '__main__':
                 border_color = color.lerp("black", 0.5)
                 shape = dataset.cakes[cake.id].squares
                 for diff in shape:
-                    pygame.draw.rect(screen, color, pygame.Rect((cake.pos[0] + diff[0]) * viewer_scale, (cake.pos[1] + diff[1]) * viewer_scale, viewer_scale, viewer_scale))
+                    pygame.draw.rect(screen, color, pygame.Rect((cake.pos[0] + diff[0]) * viewer_scale,
+                                                                (cake.pos[1] + diff[1]) * viewer_scale, viewer_scale,
+                                                                viewer_scale))
                     if (diff[0] - 1, diff[1]) not in shape:
-                        pygame.draw.rect(screen, border_color, pygame.Rect((cake.pos[0] + diff[0]) * viewer_scale, (cake.pos[1] + diff[1]) * viewer_scale, border_width, viewer_scale))
+                        pygame.draw.rect(screen, border_color, pygame.Rect((cake.pos[0] + diff[0]) * viewer_scale,
+                                                                           (cake.pos[1] + diff[1]) * viewer_scale,
+                                                                           border_width, viewer_scale))
                     if (diff[0] + 1, diff[1]) not in shape:
-                        pygame.draw.rect(screen, border_color, pygame.Rect((cake.pos[0] + diff[0] + 1) * viewer_scale - border_width, (cake.pos[1] + diff[1]) * viewer_scale, border_width, viewer_scale))
+                        pygame.draw.rect(screen, border_color,
+                                         pygame.Rect((cake.pos[0] + diff[0] + 1) * viewer_scale - border_width,
+                                                     (cake.pos[1] + diff[1]) * viewer_scale, border_width,
+                                                     viewer_scale))
                     if (diff[0], diff[1] - 1) not in shape:
-                        pygame.draw.rect(screen, border_color, pygame.Rect((cake.pos[0] + diff[0]) * viewer_scale, (cake.pos[1] + diff[1]) * viewer_scale, viewer_scale, border_width))
+                        pygame.draw.rect(screen, border_color, pygame.Rect((cake.pos[0] + diff[0]) * viewer_scale,
+                                                                           (cake.pos[1] + diff[1]) * viewer_scale,
+                                                                           viewer_scale, border_width))
                     if (diff[0], diff[1] + 1) not in shape:
-                        pygame.draw.rect(screen, border_color, pygame.Rect((cake.pos[0] + diff[0]) * viewer_scale, (cake.pos[1] + diff[1] + 1) * viewer_scale - border_width, viewer_scale, border_width))
+                        pygame.draw.rect(screen, border_color, pygame.Rect((cake.pos[0] + diff[0]) * viewer_scale, (
+                                cake.pos[1] + diff[1] + 1) * viewer_scale - border_width, viewer_scale,
+                                                                           border_width))
         pygame.draw.rect(screen, "azure3", pygame.Rect(0, dataset.h * viewer_scale, dataset.w * viewer_scale, 75))
         screen.blit(score_text, score_text_pos)
         pygame.display.flip()
         time += clock.tick(60) / 1000
     pygame.quit()
+
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument('dataset_path')
+    parser.add_argument('submission_path')
+    parser.add_argument('--scale', default='auto')
+    parser.add_argument('--speed', default='auto')
+
+    parsed_args = parser.parse_args()
+    run(parsed_args.dataset_path, parsed_args.submission_path, parsed_args.scale, parsed_args.speed)
