@@ -9,7 +9,9 @@ from Parser import parse_dataset
 def best_action(grid: Grid, cakes: List[Cake]):
     best_score = 0
     best_action = None
-    grid = grid.copy_grid()
+    grid = grid.__copy__()
+
+    print(grid)
 
     for cake in cakes:
         for x in range(grid.x):
@@ -28,7 +30,7 @@ def best_action(grid: Grid, cakes: List[Cake]):
 def glouton(dataset: Dataset):
     # Id, StartTime, X, Y
     result: Tuple[int, int, int, int] = []
-    grid = Grid(dataset.w, dataset.h)
+    grid = Grid(dataset.w, dataset.h, None, None)
     baked_cakes = []
     time = 0
 
@@ -48,6 +50,7 @@ def glouton(dataset: Dataset):
         id = dataset.cakes.index(cake)
         result.append((id, time, x, y))
 
+    return result
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
@@ -58,4 +61,4 @@ if __name__ == '__main__':
         dataset_txt = file.read()
     dataset = parse_dataset(dataset_txt)
 
-    glouton(dataset)
+    print(glouton(dataset))
